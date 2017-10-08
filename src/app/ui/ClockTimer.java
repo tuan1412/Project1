@@ -4,7 +4,6 @@ package app.ui;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
@@ -29,6 +28,7 @@ public class ClockTimer extends AnchorPane{
 	private double process;
 	private double delta;
 	private boolean isPlay = true;
+	private boolean isStop = false;
 	
 	private Circle circle;
 	private Arc arc;
@@ -98,20 +98,22 @@ public class ClockTimer extends AnchorPane{
 		pauseBtn.setLayoutY(14);
 		pauseBtn.getChildren().add(pauseImg);
 		
-		pauseBtn.setOnMouseClicked(e->onClickPause());
+		pauseBtn.setOnMouseClicked(e->onCickPause());
 	}
 	
-	private void onClickPause() {
+
+	private void onCickPause() {
+		if (isStop) return;
 		if (isPlay) {
-			pauseBtn.getChildren().removeAll();
+			isPlay = false;
+			pauseBtn.getChildren().removeAll(pauseBtn.getChildren());
 			pauseBtn.getChildren().add(playImg);
 			timeline.pause();
-			isPlay = false;
 		}else {
-			pauseBtn.getChildren().removeAll();
-			pauseBtn.getChildren().add(pauseBtn);
 			isPlay = true;
-			timeline.playFromStart();
+			pauseBtn.getChildren().removeAll(pauseBtn.getChildren());
+			pauseBtn.getChildren().add(pauseImg);
+			timeline.play();
 		}
 	}
 
@@ -142,8 +144,8 @@ public class ClockTimer extends AnchorPane{
 	
 	public void startTimeline() {
 		timeline = new Timeline(new KeyFrame(Duration.seconds(1), event ->countTime()));
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.playFromStart();
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
 
 	}
 	
@@ -155,6 +157,7 @@ public class ClockTimer extends AnchorPane{
         
 		if (time.equals(LocalTime.MIN)) {
 			timeline.stop();
+			isStop = true;
 		}
 	}
 	
