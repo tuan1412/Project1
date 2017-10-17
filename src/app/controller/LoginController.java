@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,18 +17,32 @@ import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
 
-	@FXML
-	private JFXButton signUp;
-	
-	@FXML
-	private Label demoLabel;
+    @FXML
+    private JFXTextField tfUsername;
 
+    @FXML
+    private JFXButton signIn;
+
+    @FXML
+    private JFXPasswordField pfPassword;
+
+    @FXML
+    private JFXButton signUp;
+
+    @FXML
+    private Label demoLabel;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		signUp.setOnAction(e->onClickSignUp());
+		signIn.setOnAction(e->onClickSignIn());
 		demoLabel.setOnMouseClicked(e->getDemo());
 	}
-
+	
+	public void onClickSignIn() {
+	
+	}
+	
 	public void onClickSignUp(){
 		signUp.getScene().getWindow().hide();
 		try {
@@ -38,7 +54,7 @@ public class LoginController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}	
 	
 	public void getDemo() {
 		signUp.getScene().getWindow().hide();
@@ -52,7 +68,4 @@ public class LoginController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
-
-
 }
