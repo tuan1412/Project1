@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class DemoController implements Initializable {
@@ -35,7 +34,7 @@ public class DemoController implements Initializable {
 		taskFeild.setOnMouseExited(e->taskFeild.setEditable(false));
 		taskFeild.setOnMouseClicked(e->taskFeild.setEditable(true));
 		
-		ClockTimer timer = new ClockTimer(LocalTime.of(0, 0, 30));
+		ClockTimer timer = new ClockTimer(LocalTime.of(0, 25, 0));
 		clockPane.getChildren().add(timer);
 		timer.startTimeline();
 
