@@ -34,11 +34,9 @@ public class DemoController implements Initializable {
 		taskFeild.setOnMouseExited(e->taskFeild.setEditable(false));
 		taskFeild.setOnMouseClicked(e->taskFeild.setEditable(true));
 		
-<<<<<<< HEAD
+
 		ClockTimer timer = new ClockTimer(LocalTime.of(0, 25, 0));
-=======
-		ClockTimer timer = new ClockTimer(LocalTime.of(0, 0, 40));
->>>>>>> fc820e13d909714eee50624b047108778fca1764
+
 		clockPane.getChildren().add(timer);
 		timer.startTimeline();
 

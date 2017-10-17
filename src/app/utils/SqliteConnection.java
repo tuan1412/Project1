@@ -1,4 +1,4 @@
-package app.databases;
+package app.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class SqliteConnection {
-
+	/*
+	 * review: nen dat ten ham la getConnection
+	 * co them ham dong connection
+	 */
 	public static Connection dbConnection() {
 		try {
 			Class.forName("org.sqlite.JDBC");
