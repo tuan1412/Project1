@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -9,23 +15,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="380.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="380.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.LoginController">
    <children>
       <AnchorPane layoutY="177.0" prefHeight="164.0" prefWidth="380.0">
          <children>
-            <JFXTextField focusColor="#f44336" labelFloat="true" layoutX="50.0" layoutY="25.0" prefHeight="36.0" prefWidth="280.0" promptText="Username" unFocusColor="#4e606e">
+            <JFXTextField fx:id="tfUsername" focusColor="#f44336" labelFloat="true" layoutX="50.0" layoutY="25.0" prefHeight="36.0" prefWidth="280.0" promptText="Username" unFocusColor="#4e606e">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXTextField>
-            <JFXPasswordField focusColor="#f44336" labelFloat="true" layoutX="50.0" layoutY="117.0" prefHeight="36.0" prefWidth="280.0" promptText="Password" unFocusColor="#4e606e">
+            <JFXPasswordField fx:id="pfPassword" focusColor="#f44336" labelFloat="true" layoutX="50.0" layoutY="117.0" prefHeight="36.0" prefWidth="280.0" promptText="Password" unFocusColor="#4e606e">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXPasswordField>
          </children>
       </AnchorPane>
-      <JFXButton layoutX="50.0" layoutY="351.0" prefHeight="43.0" prefWidth="126.0" style="-fx-background-color: #f44336;" text="Sign In" textFill="WHITE">
+      <JFXButton fx:id="signIn" layoutX="50.0" layoutY="351.0" prefHeight="43.0" prefWidth="126.0" style="-fx-background-color: #f44336;" text="Sign In" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
