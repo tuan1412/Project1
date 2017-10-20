@@ -7,6 +7,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+<<<<<<< HEAD
+=======
+import app.services.CheckLogin;
+>>>>>>> subBranch
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,15 +36,23 @@ public class LoginController implements Initializable {
     @FXML
     private Label demoLabel;
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> subBranch
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		signUp.setOnAction(e->onClickSignUp());
-		signIn.setOnAction(e->onClickSignIn());
+		signIn.setOnAction(e->CheckLogin.checkLogin(tfUsername.getText(), pfPassword.getText()));
 		demoLabel.setOnMouseClicked(e->getDemo());
+<<<<<<< HEAD
 	}
 	
 	public void onClickSignIn() {
 	
+=======
+
+>>>>>>> subBranch
 	}
 	
 	public void onClickSignUp(){
