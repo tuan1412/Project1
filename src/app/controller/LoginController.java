@@ -38,7 +38,8 @@ public class LoginController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		signUp.setOnAction(e->onClickSignUp());
-		signIn.setOnAction(e->CheckLogin.checkLogin(tfUsername.getText(), pfPassword.getText()));
+		CheckLogin cLogin = new CheckLogin();
+		signIn.setOnAction(e-> cLogin.checkLogin(tfUsername.getText(),pfPassword.getText()));
 		demoLabel.setOnMouseClicked(e->getDemo());
 
 	}
