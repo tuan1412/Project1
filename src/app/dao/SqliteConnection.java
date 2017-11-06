@@ -15,7 +15,6 @@ public class SqliteConnection {
 			System.out.println("Connect is successfull!!");
 			return conn;
 		} catch (Exception e) {
-			System.out.println("ccc");
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Exception");
 			alert.setHeaderText(null);
