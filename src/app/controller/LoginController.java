@@ -33,6 +33,7 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+<<<<<<< HEAD
 		signUp.setOnAction(e -> onClickSignUp());
 		signIn.setOnAction(e -> CheckLogin.checkLogin(tfUsername.getText(), pfPassword.getText()));
 		demoLabel.setOnMouseClicked(e -> getDemo());
@@ -40,6 +41,12 @@ public class LoginController implements Initializable {
 	}
 
 	public void onClickSignIn() {
+=======
+		signUp.setOnAction(e->onClickSignUp());
+		CheckLogin cLogin = new CheckLogin();
+		signIn.setOnAction(e-> cLogin.checkLogin(tfUsername.getText(),pfPassword.getText()));
+		demoLabel.setOnMouseClicked(e->getDemo());
+>>>>>>> subBranch
 
 	}
 
