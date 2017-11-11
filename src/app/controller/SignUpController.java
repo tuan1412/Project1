@@ -7,7 +7,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
-import app.services.CreatAccount;
+import app.services.CreateAccount;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,24 +16,21 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class SignUpController implements Initializable {
+	
 	@FXML
 	private JFXPasswordField pfPassword1;
-
 	@FXML
 	private JFXPasswordField pfPassword2;
-
 	@FXML
 	private JFXButton btnBack;
-
 	@FXML
 	private JFXButton btnSignUp;
-
 	@FXML
 	private JFXTextField tfUsername;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		CreatAccount crAccount = new CreatAccount();
+		CreateAccount crAccount = new CreateAccount();
 		btnBack.setOnAction(e -> backLogin());
 		btnSignUp.setOnAction(e -> crAccount.creatAccount(tfUsername.getText(), pfPassword1.getText(), pfPassword2.getText()));
 	}

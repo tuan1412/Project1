@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -15,16 +9,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="380.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="380.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.LoginController">
    <children>
       <AnchorPane layoutY="177.0" prefHeight="164.0" prefWidth="380.0">
          <children>
-            <JFXTextField fx:id="tfUsername" focusColor="#f44336" labelFloat="true" layoutX="50.0" layoutY="25.0" prefHeight="36.0" prefWidth="280.0" promptText="Username" unFocusColor="#4e606e">
+            <JFXTextField fx:id="usernameFeild" focusColor="#f44336" labelFloat="true" layoutX="50.0" layoutY="25.0" prefHeight="36.0" prefWidth="280.0" promptText="Username" unFocusColor="#4e606e">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXTextField>
-            <JFXPasswordField fx:id="pfPassword" focusColor="#f44336" labelFloat="true" layoutX="50.0" layoutY="117.0" prefHeight="36.0" prefWidth="280.0" promptText="Password" unFocusColor="#4e606e">
+            <JFXPasswordField fx:id="passwordFeild" focusColor="#f44336" labelFloat="true" layoutX="50.0" layoutY="117.0" prefHeight="36.0" prefWidth="280.0" promptText="Password" unFocusColor="#4e606e">
                <font>
                   <Font size="14.0" />
                </font>
@@ -59,11 +53,6 @@
       <Label layoutX="102.0" layoutY="105.0" text="Welcome to PomoBK App" textFill="#f44336">
          <font>
             <Font size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="50.0" layoutY="154.0" prefHeight="17.0" prefWidth="280.0" text="Login failed. Try again!" textFill="#f44336" visible="false">
-         <font>
-            <Font size="14.0" />
          </font>
       </Label>
    </children>

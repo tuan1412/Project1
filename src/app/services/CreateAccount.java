@@ -3,7 +3,7 @@ package app.services;
 import app.dao.InsertAccount;
 import app.dao.QueryUsername;
 
-public class CreatAccount {
+public class CreateAccount {
 	public void creatAccount(String username,String password,String confirmpw) {
 		QueryUsername qUsername = new QueryUsername();
 		InsertAccount insAccount = new InsertAccount();

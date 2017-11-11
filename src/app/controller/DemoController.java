@@ -18,10 +18,8 @@ import javafx.stage.Stage;
 public class DemoController implements Initializable {
 	@FXML
 	private Label backLoginLabel;
-
 	@FXML
 	private TextField taskFeild;
-
 	@FXML
 	private AnchorPane clockPane;
 

@@ -3,35 +3,46 @@ package app.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import app.utils.ConnectionUtils;
 /**
  * Ket noi den database kiem tra tai khoan de dang nhap
  * @author HUYQUANGPTN
  *
  */
 public class QueryAccount {
-
-	public boolean isExistAccount(String username, String password) {
-		boolean flag = false;
+	/**
+	 * Tra ve userId can tim
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	public int isExistAccount(String username, String password) {
+		int iduser = 0;
 
 		try {
-			Connection connection = SqliteConnection.dbConnection();
-			String query = "select * from AccountInfo where Username=? and Password=? ";
+			Connection connection = ConnectionUtils.getConnection();
+			String query = "select * from UserInfo where username=? and password=? ";
 			PreparedStatement pst = connection.prepareStatement(query);
 			pst.setString(1, username);
 			pst.setString(2, password);
 
 			ResultSet rs = pst.executeQuery();
-			if (rs.next()) {
-				flag = true;
-				System.out.println("Sign in sucessful!!");
+			while(rs.next()) {
+				iduser = rs.getInt("iduser");
 			}
 
 			rs.close();
 			pst.close();
+			ConnectionUtils.close();
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		return flag;
+		return iduser;
+	}
+	public static void main(String[] args) {
+		QueryAccount test = new QueryAccount();
+		System.out.println(test.isExistAccount("tuan", "123456"));
 	}
 }
 	

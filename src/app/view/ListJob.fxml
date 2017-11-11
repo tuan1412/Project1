@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ListJobController">
+   <children>
+      <AnchorPane prefHeight="80.0" prefWidth="380.0">
+         <children>
+            <Line endX="280.0" layoutX="100.0" layoutY="80.0" startX="-100.0" stroke="#f44336" strokeWidth="3.0" />
+            <Label layoutX="26.0" layoutY="24.0" prefHeight="35.0" prefWidth="153.0" text="PomoBK App" textFill="#f44336">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <StackPane layoutY="82.0">
+         <children>
+            <ScrollPane prefHeight="480.0" prefWidth="380.0" style="-fx-background-color: white;">
+               <content>
+                  <FlowPane fx:id="mainPane" prefHeight="475.0" prefWidth="375.0" style="-fx-background-color: white;">
+                     <children>
+                        <Pane prefHeight="70.0" prefWidth="375.0">
+                           <children>
+                              <JFXDatePicker fx:id="workDatePicker" defaultColor="#f44336" editable="false" focusTraversable="false" layoutX="214.0" layoutY="23.0" prefHeight="25.0" prefWidth="102.0" />
+                              <Label layoutX="38.0" layoutY="22.0" prefHeight="27.0" prefWidth="170.0" text="Custom Your Day:" textFill="#f44336">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <JFXButton fx:id="addNewBtn" prefHeight="31.0" prefWidth="373.0" style="-fx-background-color: #f44336;" text="Add new Job" textFill="WHITE" />
+                        <Label prefHeight="29.0" prefWidth="374.0" />
+                        <JFXComboBox fx:id="comboBox" focusColor="#f44336" prefHeight="25.0" prefWidth="375.0" style="-fx-border-color: red;" />
+                        <JFXListView fx:id="jobsList" prefHeight="186.0" prefWidth="375.0" />
+                     </children>
+                  </FlowPane>
+               </content>
+            </ScrollPane>
+            <AnchorPane fx:id="createJobPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="380.0" style="-fx-background-color: white;" visible="false">
+               <children>
+                  <Label fx:id="backLabel" layoutX="14.0" layoutY="14.0" prefHeight="33.0" prefWidth="172.0" text="&lt; Create your job..." textFill="#f44336">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <TextField fx:id="titleFeild" layoutX="14.0" layoutY="88.0" prefHeight="33.0" prefWidth="352.0" promptText="Tilte" />
+                  <TextArea fx:id="desFeild" layoutX="14.0" layoutY="141.0" prefHeight="131.0" prefWidth="352.0" promptText="Description" />
+                  <HBox layoutX="14.0" layoutY="283.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="124.0" text="Task Number" />
+                        <JFXSlider fx:id="taskNumberSlider" majorTickUnit="10.0" max="10.0" minorTickCount="10" prefHeight="33.0" prefWidth="134.0" showTickLabels="true" value="1.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="14.0" layoutY="316.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="124.0" text="Work Time" />
+                        <JFXSlider fx:id="workTimeSlider" max="25.0" minorTickCount="10" prefHeight="33.0" prefWidth="134.0" showTickLabels="true" value="25.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="14.0" layoutY="350.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="124.0" text="Short break Time" />
+                        <JFXSlider fx:id="shortBreakTimeSlider" majorTickUnit="10.0" max="10.0" minorTickCount="10" prefHeight="33.0" prefWidth="134.0" showTickLabels="true" value="5.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="14.0" layoutY="383.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="124.0" text="Long break Time" />
+                        <JFXSlider fx:id="longBreakTimeSlider" majorTickUnit="15.0" max="15.0" minorTickCount="10" prefHeight="33.0" prefWidth="134.0" showTickLabels="true" value="10.0" />
+                     </children>
+                  </HBox>
+                  <JFXButton fx:id="confirmBtn" layoutX="14.0" layoutY="433.0" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #f44336;" text="Confirm" textFill="WHITE" />
+                  <Label layoutX="14.0" layoutY="56.0" text="Start Date" />
+                  <JFXDatePicker fx:id="startDatePicker" layoutX="138.0" layoutY="44.0" prefHeight="25.0" prefWidth="134.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
