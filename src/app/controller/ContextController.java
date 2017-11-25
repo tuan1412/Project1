@@ -9,13 +9,17 @@ package app.controller;
 public class ContextController {
 	private final static ContextController instance = new ContextController();
 
+	private ContextController() {
+		
+	}
+	
 	public static ContextController getInstance() {
 		return instance;
 	}
 	
 	//login user da dang nhap
 	private int iduser;
-
+	
 	public int getLoggedUserId() {
 		return iduser;
 	}

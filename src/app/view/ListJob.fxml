@@ -36,10 +36,10 @@
                <content>
                   <FlowPane fx:id="mainPane" prefHeight="475.0" prefWidth="375.0" style="-fx-background-color: white;">
                      <children>
-                        <Pane prefHeight="70.0" prefWidth="375.0">
+                        <Pane prefHeight="57.0" prefWidth="375.0">
                            <children>
-                              <JFXDatePicker fx:id="workDatePicker" defaultColor="#f44336" editable="false" focusTraversable="false" layoutX="214.0" layoutY="23.0" prefHeight="25.0" prefWidth="102.0" />
-                              <Label layoutX="38.0" layoutY="22.0" prefHeight="27.0" prefWidth="170.0" text="Custom Your Day:" textFill="#f44336">
+                              <JFXDatePicker fx:id="workDatePicker" defaultColor="#f44336" editable="false" focusTraversable="false" layoutX="214.0" layoutY="16.0" prefHeight="25.0" prefWidth="102.0" />
+                              <Label layoutX="44.0" layoutY="15.0" prefHeight="27.0" prefWidth="170.0" text="Custom Your Day:" textFill="#f44336">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -47,9 +47,11 @@
                            </children>
                         </Pane>
                         <JFXButton fx:id="addNewBtn" prefHeight="31.0" prefWidth="373.0" style="-fx-background-color: #f44336;" text="Add new Job" textFill="WHITE" />
-                        <Label prefHeight="29.0" prefWidth="374.0" />
-                        <JFXComboBox fx:id="comboBox" focusColor="#f44336" prefHeight="25.0" prefWidth="375.0" style="-fx-border-color: red;" />
-                        <JFXListView fx:id="jobsList" prefHeight="186.0" prefWidth="375.0" />
+                        <Label prefHeight="28.0" prefWidth="374.0" />
+                        <JFXComboBox fx:id="comBoxJob" focusColor="#f44336" prefHeight="25.0" prefWidth="375.0" style="-fx-border-color: red;" />
+                        <JFXListView fx:id="jobsList" prefHeight="208.0" prefWidth="375.0" />
+                        <JFXComboBox fx:id="comBoxJobOverdate" focusColor="#f44336" layoutX="10.0" layoutY="140.0" prefHeight="28.0" prefWidth="375.0" style="-fx-border-color: red;" />
+                        <JFXListView fx:id="jobsListOverdate" prefHeight="89.0" prefWidth="375.0" />
                      </children>
                   </FlowPane>
                </content>
