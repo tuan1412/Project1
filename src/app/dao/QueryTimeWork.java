@@ -7,22 +7,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.model.TaskDoneOfDay;
+import app.model.TimeWorkOfDay;
 import app.utils.ConnectionUtils;
 
-public class QueryTaskDone {
-
-	public List<TaskDoneOfDay> getListTaskDone(int idUser){
-		List<TaskDoneOfDay> listTask = new ArrayList<>();
-		listTask.clear();
+public class QueryTimeWork {
+	public List<TimeWorkOfDay> getListTimeWork(int idUser){
+		List<TimeWorkOfDay> listTime = new ArrayList<>();
+		listTime.clear();
 		try {
 			Connection con = ConnectionUtils.getConnection();
-			String query = "Select startDate,sum(taskDone) from job where idUser = ? group by startDate";
+			String query = "Select * from Statistic where idUser = ?";
 			PreparedStatement pst =  con.prepareStatement(query);
 			pst.setInt(1, idUser);
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()) {
-				listTask.add(new TaskDoneOfDay(rs.getString(1), rs.getInt(2)));
+				listTime.add(new TimeWorkOfDay(rs.getString(2), rs.getInt(3)));
 			}
 			pst.close();
 			rs.close();
@@ -30,18 +29,19 @@ public class QueryTaskDone {
 			e.printStackTrace();
 		}
 		
-		return listTask;
+		return listTime;
 	}
 
 //	public static void main(String[] args) {
-//		QueryTaskDone qTask = new QueryTaskDone();
-//		List<TaskDoneOfDay> list = new ArrayList<>();
-//			list = 	qTask.getListTaskDone(2);
+//		QueryTimeWork qTask = new QueryTimeWork();
+//		List<TimeWorkOfDay> list = new ArrayList<>();
+//			list = 	qTask.getListTimeWork(2);
 //			String startDate = list.get(0).getDate();
 //			String endDate = list.get(list.size()-1).getDate();
 //		for(int i = 0;i< list.size(); i++) {
-//			System.out.println(list.get(i).getDate() + '\t' + list.get(i).getTotalTaskDone());
+//			System.out.println(list.get(i).getDate() + '\t' + list.get(i).getMinutesWork());
 //		}
 //		System.out.println(startDate +'\t' + endDate);
 //	}
+
 }

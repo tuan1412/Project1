@@ -46,7 +46,7 @@ public class LoginController implements Initializable {
 		if (iduser != 0) {
 			ContextController context = ContextController.getInstance();
 			context.setLoggedUserId(iduser);
-			switchScene("LineChart.fxml");
+			switchScene("Chart.fxml");
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Lỗi đăng nhập");
