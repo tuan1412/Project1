@@ -199,6 +199,6 @@ public class HomeController {
 	
 	private void removeItem(Job job) {
 		items.remove(job);
-		jobService.removeByID(job.getIdjob());
+//		jobService.removeByID(job.getIdjob());
 	}
 }

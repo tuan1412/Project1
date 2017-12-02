@@ -58,11 +58,11 @@ public class SignUpController implements Initializable {
 		String username = tfUsername.getText();
 		String password = pfPassword1.getText();
 		String repassword = pfPassword2.getText();
-		if (userService.create(username, password, repassword)) {
-			showError();
-		}else{
-			showSuccess();
-		};
+//		if (userService.create(username, password, repassword)) {
+//			showError();
+//		}else{
+//			showSuccess();
+//		};
 		removeInfo();
 	}
 	
