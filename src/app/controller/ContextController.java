@@ -1,5 +1,7 @@
 package app.controller;
 
+import app.model.Job;
+
 /**
  * Class de truyen tham so giua cac controller
  * 
@@ -22,5 +24,15 @@ public class ContextController {
 
 	public void setLoggedUserId(int iduser) {
 		this.iduser = iduser;
+	}
+	//job de play
+	private Job job;
+
+	public Job getJob() {
+		return job;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
 	}
 }

@@ -11,7 +11,7 @@
    <children>
       <AnchorPane prefHeight="80.0" prefWidth="380.0">
          <children>
-            <Label layoutX="28.0" layoutY="23.0" prefHeight="35.0" prefWidth="153.0" text="PomoBK App" textFill="#f44336">
+            <Label layoutX="28.0" layoutY="23.0" prefHeight="35.0" prefWidth="174.0" text="PomoHustApp" textFill="#f44336">
                <font>
                   <Font size="24.0" />
                </font>
@@ -35,6 +35,11 @@
                </cursor>
             </TextField>
             <AnchorPane fx:id="clockPane" layoutX="40.0" layoutY="120.0" prefHeight="300.0" prefWidth="300.0" />
+            <Label fx:id="stateLabel" alignment="CENTER" layoutX="45.0" layoutY="435.0" prefHeight="31.0" prefWidth="291.0" text="Time to work">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

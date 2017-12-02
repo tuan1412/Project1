@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,8 +29,8 @@ public class ClockTimer extends AnchorPane{
 	private Timeline timeline;
 	private double process;
 	private double delta;
-	private boolean isPlay = true;
-	private boolean isStop = false;
+	private BooleanProperty isPlay = new SimpleBooleanProperty(true);
+	private BooleanProperty isStop = new SimpleBooleanProperty(false);
 	
 	private Circle circle;
 	private Arc arc;
@@ -39,6 +41,38 @@ public class ClockTimer extends AnchorPane{
 	private ImageView doneImg;
 	private ImageView playImg;
 	
+	public boolean getIsPlay() {
+		return isPlay.get();
+	}
+	
+	public void setIsPlay(boolean isPlay) {
+		this.isPlay.set(isPlay);
+	}
+	public BooleanProperty isPlayProperty() {
+		return isPlay;
+	}
+	
+	public boolean getIsStop() {
+		return isStop.get();
+	}
+	
+	public void setIsStop(boolean isStop) {
+		this.isStop.set(isStop);
+	}
+	public BooleanProperty isStopProperty() {
+		return isStop;
+	}
+	public void setTime(LocalTime time) {
+		this.time = time;
+	}
+	
+	public Pane getPauseBtn() {
+		return pauseBtn;
+	}
+
+	public LocalTime getTime() {
+		return time;
+	}
 	public ClockTimer(LocalTime time) {
 		this.time = time;
 		process = 0;
@@ -103,14 +137,15 @@ public class ClockTimer extends AnchorPane{
 	
 
 	private void onCickPause() {
-		if (isStop) return;
-		if (isPlay) {
-			isPlay = false;
+		if (isStop.get()) return;
+		if (isPlay.get()) {
+			isPlay.set(false);
 			pauseBtn.getChildren().removeAll(pauseBtn.getChildren());
 			pauseBtn.getChildren().add(playImg);
 			timeline.pause();
+			System.out.println(time.toString());
 		}else {
-			isPlay = true;
+			isPlay.set(true);
 			pauseBtn.getChildren().removeAll(pauseBtn.getChildren());
 			pauseBtn.getChildren().add(pauseImg);
 			timeline.play();
@@ -123,6 +158,8 @@ public class ClockTimer extends AnchorPane{
 		doneBtn.setLayoutX(123);
 		doneBtn.setLayoutY(232);
 		doneBtn.getChildren().add(doneImg);
+		
+		doneBtn.setOnMouseClicked(e->onClickDone());
 	}
 	
 	private void initLabel() {
@@ -157,10 +194,15 @@ public class ClockTimer extends AnchorPane{
         
 		if (time.equals(LocalTime.MIN)) {
 			timeline.stop();
-			isStop = true;
+			isStop.set(true);
 		}
 	}
 	
+	private void onClickDone() {
+		isStop.set(true);
+		timeline.stop();
+		
+	}
 	
 	
 }
