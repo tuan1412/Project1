@@ -12,12 +12,7 @@ public class UserService {
 		return userDao.findByUsernameAndPassword(username, password);
 	}
 	
-	public boolean create(String username, String password, String repassword) {
-		if ("".equals(username) || "".equals(password) || 
-			"".equals(repassword) || !password.equals(repassword)) {
-			return false;
-		}
-		
+	public boolean create(String username, String password) {
 		return userDao.insert(username, password);
 	}
 	

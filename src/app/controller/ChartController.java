@@ -39,9 +39,6 @@ public class ChartController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		listTimeWork = new QueryTimeWork().getListTimeWork(ContextController.getInstance().getLoggedUserId());
-		if (listTimeWork.isEmpty()) {
-			return;
-		}
 		XYChart.Series<String, Integer> series = new XYChart.Series<>();
 		for (int i = 0; i < listTimeWork.size(); i++) {
 			series.getData().add(new XYChart.Data<String, Integer>(listTimeWork.get(i).getDate().substring(8),
