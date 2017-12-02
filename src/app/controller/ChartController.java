@@ -41,6 +41,10 @@ public class ChartController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		listTimeWork = new QueryTimeWork().getListTimeWork(ContextController.getInstance().getLoggedUserId());
 
+		if (listTimeWork.isEmpty()) {
+			return;
+		}
+
 		XYChart.Series<String, Integer> series = new XYChart.Series<>();
 		for (int i = 0; i < listTimeWork.size(); i++) {
 			series.getData().add(new XYChart.Data<String, Integer>(listTimeWork.get(i).getDate().substring(8),
@@ -93,9 +97,9 @@ public class ChartController implements Initializable {
 			while (index1 <= index2) {
 				if (currentDate.equals(listTimeWork.get(index1).getDate())) {
 
-					series.getData().add(new XYChart.Data<>(listTimeWork.get(index1).getDate().substring(8),
+				
 
-					series.getData().add(new XYChart.Data<>(listTimeWork.get(index1).getDate(),
+					series.getData().add(new XYChart.Data<>(listTimeWork.get(index1).getDate().substring(8),
 
 							listTimeWork.get(index1).getMinutesWork()));
 					currentDate = DateIncrementer.addOneDay(currentDate);
@@ -103,8 +107,6 @@ public class ChartController implements Initializable {
 				} else {
 
 					series.getData().add(new XYChart.Data<>(currentDate.substring(8), 0));
-
-					series.getData().add(new XYChart.Data<>(currentDate, 0));
 
 					currentDate = DateIncrementer.addOneDay(currentDate);
 				}

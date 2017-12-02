@@ -15,6 +15,7 @@ public class JobForm {
 	public JobForm() {
 		
 	}
+	
 	public JobForm(int iduser, LocalDate startDate, String title, String des, int taskNumber, int workTime,
 			int shortBreakTime, int longBreakTime) {
 		super();

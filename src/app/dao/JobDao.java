@@ -171,7 +171,7 @@ public class JobDao {
 		boolean flag = false;
 		try {
 			Connection connection = ConnectionUtils.getConnection();
-			String sql = "delete form job where idjob = ?";
+			String sql = "delete from job where idjob = ?";
 			PreparedStatement pst = connection.prepareStatement(sql);
 			pst.setInt(1, id);
 			

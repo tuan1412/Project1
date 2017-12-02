@@ -161,7 +161,7 @@ public class HomeController {
 			detailItem.setOnAction(e -> viewDetail(jobsList.getSelectionModel().getSelectedItem()));
 			MenuItem removeItem = new MenuItem("Remove job");
 			removeItem.setOnAction(e-> removeItem(jobsList.getSelectionModel().getSelectedItem()));
-			contextMenu.getItems().addAll(playItem, doneItem, detailItem);
+			contextMenu.getItems().addAll(playItem, doneItem, detailItem, removeItem);
 
 			cell.emptyProperty().addListener((ov, wasEmpty, isNowEmpty) -> {
 				if (isNowEmpty) {

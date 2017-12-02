@@ -56,7 +56,7 @@ public class DetailController implements Initializable {
 		titleFeild.setEditable(false);
 		desFeild.setEditable(false);
 		
-		backBtn.setOnAction(e->detailJob.setVisible(true));
+		backBtn.setOnAction(e->detailJob.setVisible(false));
 	}
 
 }

@@ -80,7 +80,7 @@ public class CreateController {
     	
     	JobForm form = new JobForm(iduser, startDate, title, des, taskNumber, workTime, shortBreakTime, longBreakTime);
     	if (jobService.insertJob(form)) {
-    		
+    		showSuccessInsert();
     	}else{
     		showErrorInsert();
     	};
