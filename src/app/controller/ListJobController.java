@@ -1,160 +1,162 @@
 package app.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
 
-import app.model.Job;
-import app.services.CreateJob;
-import app.services.GetListJob;
-import app.services.GetListJobNotDone;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+
+import javafx.geometry.Side;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
-/**
- * 
- * @author Chu lun Kute
- *
- */
 public class ListJobController implements Initializable {
+	@FXML
+	private AnchorPane navPane;
 
 	@FXML
-	private FlowPane mainPane;
-	@FXML
-	private DatePicker workDatePicker;
-	@FXML
-	private JFXButton addNewBtn;
-	@FXML
-	private AnchorPane createJobPane;
-	@FXML
-	private Label backLabel;
-	@FXML
-	private TextField titleFeild;
-	@FXML
-	private TextArea desFeild;
-	@FXML
-	private JFXSlider taskNumberSlider;
-	@FXML
-	private JFXSlider workTimeSlider;
-	@FXML
-	private JFXSlider shortBreakTimeSlider;
-	@FXML
-	private JFXSlider longBreakTimeSlider;
-	@FXML
-	private JFXButton confirmBtn;
-	@FXML
-	private JFXDatePicker startDatePicker;
-	@FXML
-	private JFXComboBox<String> comBoxJob;
-	@FXML
-	private JFXListView<Job> jobsList;
-	@FXML
-	private JFXComboBox<String> comBoxJobOverdate;
-	@FXML
-	private JFXListView<Job> jobsListOverdate;
+	private JFXHamburger navMenu;
 
-	private ObservableList<Job> items = FXCollections.observableArrayList();
+	@FXML
+
+	private AnchorPane mainPane;
+
+	@FXML
+	private JFXDrawer drawer;
+
+	private ContextMenu contextMenu;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		workDatePicker.setValue(LocalDate.now());
-		startDatePicker.setValue(LocalDate.now());
-
-		createJobPane.setVisible(false);
-		addNewBtn.setOnAction(e -> onClickAddNewBtn());
-		backLabel.setOnMouseClicked(e -> backJobList());
-		confirmBtn.setOnAction(e -> confirmNewJob());
-
-		jobsList.setPlaceholder(new Label("No Content In List"));
-		workDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
-			List<Job> jobs = new GetListJob(ContextController.getInstance().getLoggedUserId(), newValue).getJobs();
-			items.setAll(jobs);
-			jobsList.setItems(items);
-		});
-
-		// items.addListener(new ListChangeListener<Job>() {
-		// @Override
-		// public void onChanged(Change<? extends Job> c) {
-		// if (items.isEmpty()) {
-		// jobsList.setPrefHeight(183);
-		// }
-		// else{
-		// jobsList.setPrefHeight(items.size() * 35 + 2);
-		// }
-		// }
-		// });
-
-		comBoxJob.getItems().add("Not Done");
-		comBoxJob.getItems().add("Done");
-		comBoxJob.setValue("Not Done");
-
-		comBoxJob.valueProperty().addListener((ov, oldValue, newValue) -> {
-			if (newValue.equals("Not Done")) {
-				List<Job> jobs = new GetListJob(ContextController.getInstance().getLoggedUserId(),
-						workDatePicker.getValue()).getJobs();
-				items.setAll(jobs);
-				jobsList.setItems(items);
-				return;
-			}
-			if (newValue.equals("Done")) {
-				List<Job> jobs = new GetListJobNotDone(ContextController.getInstance().getLoggedUserId(),
-						workDatePicker.getValue()).getJobs();
-				items.setAll(jobs);
-				jobsList.setItems(items);
-				return;
-			}
-		});
-		
-		comBoxJobOverdate.getItems().add("Overdate");
-		comBoxJobOverdate.setValue("Overdate");
-		
-		jobsListOverdate.setPlaceholder(new Label("No Content In List"));
-
+		setHome();
+		createMenu();
 
 	}
 
-	private void onClickAddNewBtn() {
-		createJobPane.setVisible(true);
-	}
+	public void setCreate() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Create.fxml"));
+			Parent root = loader.load();
+			CreateController createController = loader.getController();
+			createController.setListJobController(this);
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add((Node) root);
+			setEffect((Node) root);
+			navMenu.setVisible(true);
 
-	private void backJobList() {
-		createJobPane.setVisible(false);
-	}
-
-	private void confirmNewJob() {
-		int iduser = ContextController.getInstance().getLoggedUserId();
-		String title = titleFeild.getText();
-		String des = titleFeild.getText();
-		LocalDate startDate = startDatePicker.getValue();
-		int taskNumber = (int) taskNumberSlider.getValue();
-		int workTime = (int) workTimeSlider.getValue();
-		int shortBreakTime = (int) shortBreakTimeSlider.getValue();
-		int longBreakTime = (int) longBreakTimeSlider.getValue();
-
-		CreateJob createJob = new CreateJob(iduser, startDate, title, des, taskNumber, workTime, shortBreakTime,
-				longBreakTime);
-		createJob.create();
-		if (startDate.equals(workDatePicker.getValue()) && comBoxJob.getValue().equals("Not Done")) {
-			List<Job> jobs = new GetListJob(ContextController.getInstance().getLoggedUserId(),
-					workDatePicker.getValue()).getJobs();
-			items.setAll(jobs);
-			jobsList.setItems(items);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		backJobList();
+	}
+
+	public void setPlay() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Time.fxml"));
+			Parent root = loader.load();
+			TimeController timeController = loader.getController();
+			timeController.setListJobController(this);
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add((Node) root);
+			setEffect((Node) root);
+			navMenu.setVisible(false);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void setHome() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Home.fxml"));
+			Parent root = loader.load();
+			HomeController homeController = loader.getController();
+			homeController.setListJobController(this);
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add((Node) root);
+			setEffect((Node) root);
+			navMenu.setVisible(true);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void setStatistic() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Chart.fxml"));
+			Parent root = loader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add((Node) root);
+			setEffect((Node) root);
+			navMenu.setVisible(true);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void setEffect(Node node) {
+		FadeTransition ft = new FadeTransition(Duration.millis(1500));
+		ft.setNode(node);
+		ft.setFromValue(0.1);
+		ft.setToValue(1);
+		ft.setCycleCount(1);
+		ft.setAutoReverse(false);
+		ft.play();
+	}
+
+	private void createMenu() {
+		MenuItem mainItem = new MenuItem("Main");
+		mainItem.setOnAction(e -> setHome());
+
+		MenuItem createItem = new MenuItem("Create Job");
+		createItem.setOnAction(e -> setCreate());
+
+		MenuItem statisticItem = new MenuItem("Statistic");
+		statisticItem.setOnAction(e -> setStatistic());
+
+		MenuItem logOutItem = new MenuItem("Log Out");
+		logOutItem.setOnAction(e -> switchScene("Login.fxml"));
+
+		MenuItem exitItem = new MenuItem("Exit");
+		exitItem.setOnAction(e -> Platform.exit());
+
+		contextMenu = new ContextMenu();
+		contextMenu.getItems().addAll(mainItem, createItem, statisticItem, logOutItem, exitItem);
+
+		navMenu.setOnMouseClicked(e -> contextMenu.show(navMenu, Side.RIGHT, 0, 0));
+	}
+
+	private void switchScene(String newScence) {
+		navMenu.getScene().getWindow().hide();
+		try {
+			Stage stage = new Stage();
+			String desScene = "../view/" + newScence;
+			Parent root = FXMLLoader.load(getClass().getResource(desScene));
+			Scene scene = new Scene(root);
+
+			stage.getIcons().add(new Image("/app/resource/tomato.png"));
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.sizeToScene();
+
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
 	}
 }

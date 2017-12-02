@@ -11,10 +11,8 @@ public class ConnectionUtils {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conn = DriverManager.getConnection("jdbc:sqlite:..\\Project1\\project1.db");
-			System.out.println("Connect is successfull!!");
 			return conn;
 		} catch (Exception e) {
-			System.out.println("Don't connect");
 			return null;
 		}
 	}

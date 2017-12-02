@@ -12,6 +12,7 @@ public class Job {
 	private String pause;
 	private String startDate;
 	private int state;
+	private String des;
 	
 	
 	public Job(String title) {
@@ -19,8 +20,10 @@ public class Job {
 		this.title = title;
 	}
 
+	
+
 	public Job(int idjob, int iduser, int taskNumber, int taskDone, int longBreakTime, int workTime, int shortBreakTime,
-			String title, String pause, String startDate, int state) {
+			String title, String pause, String startDate, int state, String des) {
 		super();
 		this.idjob = idjob;
 		this.iduser = iduser;
@@ -33,7 +36,10 @@ public class Job {
 		this.pause = pause;
 		this.startDate = startDate;
 		this.state = state;
+		this.des = des;
 	}
+
+
 
 	public int getIdjob() {
 		return idjob;
@@ -127,6 +133,14 @@ public class Job {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return this.title;
+	}
+
+	public String getDes() {
+		return des;
+	}
+
+	public void setDes(String des) {
+		this.des = des;
 	}
 	
 	

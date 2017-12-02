@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -23,6 +24,9 @@ public class DemoController implements Initializable {
 	@FXML
 	private AnchorPane clockPane;
 
+    @FXML
+    private Label stateLabel;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		backLoginLabel.setOnMouseClicked(e -> backLogin());
@@ -32,11 +36,14 @@ public class DemoController implements Initializable {
 		taskFeild.setOnMouseExited(e->taskFeild.setEditable(false));
 		taskFeild.setOnMouseClicked(e->taskFeild.setEditable(true));
 		
-
 		ClockTimer timer = new ClockTimer(LocalTime.of(0, 25, 0));
 
 		clockPane.getChildren().add(timer);
 		timer.startTimeline();
+		
+		timer.isStopProperty().addListener((ov, oldValue, newValue)->{
+			stateLabel.setText("Job done. Sign in for more.");
+		});
 
 	}
 
@@ -46,7 +53,10 @@ public class DemoController implements Initializable {
 			Stage stage = new Stage();
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
 			Scene scene = new Scene(root);
+			stage.getIcons().add(new Image("/app/resource/tomato.png"));
 			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.sizeToScene();
 			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace();

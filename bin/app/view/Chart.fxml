@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="480.0" prefWidth="380.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ChartController">
+   <children>
+      <LineChart fx:id="lineChart" layoutY="59.0" prefHeight="250.0" prefWidth="370.0">
+         <xAxis>
+            <CategoryAxis label="Date" prefHeight="37.0" prefWidth="287.0" side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis label="Minutes" prefHeight="183.0" prefWidth="41.0" side="LEFT" />
+         </yAxis>
+      </LineChart>
+      <Label layoutX="97.0" layoutY="32.0" prefHeight="27.0" prefWidth="222.0" text="Complete mins of day" textAlignment="CENTER" textFill="#f44336">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXComboBox fx:id="cbDate1" focusColor="#f44336" layoutX="72.0" layoutY="356.0" prefHeight="25.0" prefWidth="121.0" />
+      <Label layoutX="22.0" layoutY="393.0" prefHeight="35.0" prefWidth="50.0" text="To">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <JFXComboBox fx:id="cbDate2" focusColor="#f44336" layoutX="72.0" layoutY="393.0" prefHeight="25.0" prefWidth="121.0" />
+      <JFXButton fx:id="btnLoadChart2" layoutX="22.0" layoutY="441.0" prefHeight="25.0" prefWidth="343.0" style="-fx-background-color: #f44336;" text="Load Chart" textFill="WHITE" />
+      <Label layoutX="22.0" layoutY="316.0" prefHeight="27.0" prefWidth="343.0" text="Please chose duration" textFill="#f44336">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="356.0" prefHeight="35.0" prefWidth="37.0" text="From">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
