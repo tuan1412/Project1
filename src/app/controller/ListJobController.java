@@ -11,7 +11,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -19,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -107,6 +107,20 @@ public class ListJobController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void setViewGoal() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Goal.fxml"));
+			Parent root = loader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add((Node) root);
+			setEffect((Node) root);
+			navMenu.setVisible(true);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void setEffect(Node node) {
 		FadeTransition ft = new FadeTransition(Duration.millis(1500));
@@ -119,23 +133,36 @@ public class ListJobController implements Initializable {
 	}
 
 	private void createMenu() {
+//		MenuItem mainItem = new MenuItem("Main", new ImageView(new Image("app/resource/main.png")));
 		MenuItem mainItem = new MenuItem("Main");
+
 		mainItem.setOnAction(e -> setHome());
 
+//		MenuItem createItem = new MenuItem("Create Job", new ImageView(new Image("../resource/plus.png")));
 		MenuItem createItem = new MenuItem("Create Job");
-		createItem.setOnAction(e -> setCreate());
 
+		createItem.setOnAction(e -> setCreate());
+		
+		MenuItem goalItem = new MenuItem("View Goal");
+		goalItem.setOnAction(e -> setViewGoal());
+
+//		MenuItem statisticItem = new MenuItem("Statistic", new ImageView(new Image("../resource/chart.png")));
 		MenuItem statisticItem = new MenuItem("Statistic");
+
 		statisticItem.setOnAction(e -> setStatistic());
 
+//		MenuItem logOutItem = new MenuItem("Log Out", new ImageView(new Image("../resource/logout.png")));
 		MenuItem logOutItem = new MenuItem("Log Out");
+
 		logOutItem.setOnAction(e -> switchScene("Login.fxml"));
 
+//		MenuItem exitItem = new MenuItem("Exit", new ImageView(new Image("../resource/exit.png")));
 		MenuItem exitItem = new MenuItem("Exit");
+
 		exitItem.setOnAction(e -> Platform.exit());
 
 		contextMenu = new ContextMenu();
-		contextMenu.getItems().addAll(mainItem, createItem, statisticItem, logOutItem, exitItem);
+		contextMenu.getItems().addAll(mainItem, createItem, goalItem, statisticItem, logOutItem, exitItem);
 
 		navMenu.setOnMouseClicked(e -> contextMenu.show(navMenu, Side.RIGHT, 0, 0));
 	}

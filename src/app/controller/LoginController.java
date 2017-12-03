@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import app.services.UserService;
+import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,7 +18,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class LoginController implements Initializable {
 
@@ -32,6 +35,9 @@ public class LoginController implements Initializable {
 	@FXML
 	private Label demoLabel;
 	
+	 @FXML
+	 private ImageView spiner;
+	
 	private UserService userService = new UserService();
 
 	@Override
@@ -39,6 +45,7 @@ public class LoginController implements Initializable {
 		signUp.setOnAction(e -> onClickSignUp());
 		demoLabel.setOnMouseClicked(e -> getDemo());
 		signIn.setOnAction(e-> onClickLogin());
+		spiner.setVisible(false);
 
 	}
 
@@ -46,7 +53,16 @@ public class LoginController implements Initializable {
 		String username = usernameFeild.getText();
 		String password = passwordFeild.getText();
 		
+		spiner.setVisible(true);
+		RotateTransition trans = new RotateTransition(Duration.seconds(1.5), spiner);
+		trans.setByAngle(360);
+		trans.play();
 		int iduser = userService.validateLogin(username, password);
+		trans.setOnFinished(e->login(iduser));
+	}
+	
+	private void login(int iduser) {
+		
 		if (iduser != 0) {
 			ContextController context = ContextController.getInstance();
 			context.setLoggedUserId(iduser);
@@ -56,11 +72,10 @@ public class LoginController implements Initializable {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Lỗi đăng nhập");
 			alert.setContentText("Tài khoản hoặc mật khẩu không tồn tại");
-			alert.showAndWait();
+			alert.show();
+			spiner.setVisible(false);
 		}
 	}
-	
-
 	private void onClickSignUp() {
 		switchScene("SignUp.fxml");
 	}
