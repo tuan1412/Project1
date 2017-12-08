@@ -43,6 +43,7 @@ public class ListJobController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		setHome();
 		createMenu();
+		mainPane.getStylesheets().add("/app/resource/css/login.css");
 
 	}
 
@@ -133,31 +134,31 @@ public class ListJobController implements Initializable {
 	}
 
 	private void createMenu() {
-//		MenuItem mainItem = new MenuItem("Main", new ImageView(new Image("app/resource/main.png")));
-		MenuItem mainItem = new MenuItem("Main");
+		MenuItem mainItem = new MenuItem("Main", new ImageView(new Image("app/resource/main.png")));
+//		MenuItem mainItem = new MenuItem("Main");
 
 		mainItem.setOnAction(e -> setHome());
 
-//		MenuItem createItem = new MenuItem("Create Job", new ImageView(new Image("../resource/plus.png")));
-		MenuItem createItem = new MenuItem("Create Job");
+		MenuItem createItem = new MenuItem("Create Job", new ImageView(new Image("app/resource/plus.png")));
+//		MenuItem createItem = new MenuItem("Create Job");
 
 		createItem.setOnAction(e -> setCreate());
 		
-		MenuItem goalItem = new MenuItem("View Goal");
+		MenuItem goalItem = new MenuItem("View Goal", new ImageView(new Image("app/resource/goal.png")));
 		goalItem.setOnAction(e -> setViewGoal());
 
-//		MenuItem statisticItem = new MenuItem("Statistic", new ImageView(new Image("../resource/chart.png")));
-		MenuItem statisticItem = new MenuItem("Statistic");
+		MenuItem statisticItem = new MenuItem("Statistic", new ImageView(new Image("app/resource/chart.png")));
+//		MenuItem statisticItem = new MenuItem("Statistic");
 
 		statisticItem.setOnAction(e -> setStatistic());
 
-//		MenuItem logOutItem = new MenuItem("Log Out", new ImageView(new Image("../resource/logout.png")));
-		MenuItem logOutItem = new MenuItem("Log Out");
+		MenuItem logOutItem = new MenuItem("Log Out", new ImageView(new Image("app/resource/logout.png")));
+//		MenuItem logOutItem = new MenuItem("Log Out");
 
 		logOutItem.setOnAction(e -> switchScene("Login.fxml"));
 
-//		MenuItem exitItem = new MenuItem("Exit", new ImageView(new Image("../resource/exit.png")));
-		MenuItem exitItem = new MenuItem("Exit");
+		MenuItem exitItem = new MenuItem("Exit", new ImageView(new Image("app/resource/exit.png")));
+//		MenuItem exitItem = new MenuItem("Exit");
 
 		exitItem.setOnAction(e -> Platform.exit());
 
@@ -174,7 +175,7 @@ public class ListJobController implements Initializable {
 			String desScene = "../view/" + newScence;
 			Parent root = FXMLLoader.load(getClass().getResource(desScene));
 			Scene scene = new Scene(root);
-
+			scene.getStylesheets().add("/app/resource/css/login.css");
 			stage.getIcons().add(new Image("/app/resource/tomato.png"));
 			stage.setScene(scene);
 			stage.setResizable(false);

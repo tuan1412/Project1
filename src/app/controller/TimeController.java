@@ -46,6 +46,7 @@ public class TimeController {
 	
 	private UpdateStatistic upStatistic = new UpdateStatistic();
 
+	private int minsDone;
 
 	public void setListJobController(ListJobController listJobController) {
 		this.listJobController = listJobController;
@@ -73,7 +74,8 @@ public class TimeController {
 	private void doWhenStop() {
 		if (stateTime.getText().equals(WORK_TITLE)) {
 			job.setTaskDone(job.getTaskDone() + 1);
-			upStatistic.updateStatistic(job.getIduser(), LocalDate.now().toString(), job.getWorkTime());
+			minsDone += clockTimer.getTimeDone();
+
 			setTextTaskLabel();
 			if (job.getTaskDone() == job.getTaskNumber()) {
 				stateTime.setText(DONE_TITLE);
@@ -104,17 +106,23 @@ public class TimeController {
 		}
 	}
 	
+	
 	private void makeTimer() {
 		timer.getChildren().add(clockTimer);
 		clockTimer.startTimeline();
 		clockTimer.isStopProperty().addListener(e -> doWhenStop());
+		
 		backLabel.visibleProperty().bind(clockTimer.isPlayProperty().not());
 	}
 	
 	private void exitClock() {
 		if (stateTime.getText().equals(WORK_TITLE) || stateTime.getText().equals(DONE_TITLE)) {
+			if (stateTime.getText().equals(WORK_TITLE)) {
+				minsDone += clockTimer.getTimeDone();
+			}
 			job.setPause(clockTimer.getTime().toString());
 			jobService.updateJob(job);
+			upStatistic.updateStatistic(job.getIduser(), LocalDate.now().toString(), minsDone);
 			listJobController.setHome();
 		}else {
 			job.setPause("00:00:00");

@@ -26,6 +26,7 @@ public class ClockTimer extends AnchorPane{
 	
 	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm:ss");
 	private LocalTime time;
+	private LocalTime timeDone = LocalTime.MIN;
 	private Timeline timeline;
 	private double process;
 	private double delta;
@@ -86,6 +87,7 @@ public class ClockTimer extends AnchorPane{
 		initLabel();
 		
 		this.getChildren().addAll(circle, arc, pauseBtn, doneBtn, timerLabel);
+		this.getStylesheets().add("/app/resource/css/timer.css");
 	}
 	
 	private void initCircle() {
@@ -111,7 +113,6 @@ public class ClockTimer extends AnchorPane{
 	private void initImage() {
 	
 		pauseImg = new ImageView(new Image("app/resource/pause.png"));
-		
 		pauseImg.setFitHeight(54);
 		pauseImg.setFitWidth(54);
 		
@@ -123,10 +124,12 @@ public class ClockTimer extends AnchorPane{
 		doneImg.setFitHeight(54);
 		doneImg.setFitWidth(54);
 		
+		
 	}
 	
 	private void initPauseBtn() {
 		pauseBtn = new Pane();
+		pauseBtn.setStyle("/app/resource/timer.css");
 		pauseBtn.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
 		pauseBtn.setLayoutX(123);
 		pauseBtn.setLayoutY(14);
@@ -188,6 +191,7 @@ public class ClockTimer extends AnchorPane{
 	
 	private void countTime() {
 		time = time.minusSeconds(1);
+		timeDone = timeDone.plusSeconds(1);
 		updateLabel();
 		process += delta;
         arc.setLength(360 - process);
@@ -200,9 +204,12 @@ public class ClockTimer extends AnchorPane{
 	
 	private void onClickDone() {
 		isStop.set(true);
-		timeline.stop();
+		timeDone = timeDone.plusSeconds(time.toSecondOfDay());
 		
 	}
 	
+	public int getTimeDone() {
+		return timeDone.getMinute() + 1;
+	}
 	
 }

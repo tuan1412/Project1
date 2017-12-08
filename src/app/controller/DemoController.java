@@ -53,6 +53,7 @@ public class DemoController implements Initializable {
 			Stage stage = new Stage();
 			Parent root = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add("/app/resource/css/login.css");
 			stage.getIcons().add(new Image("/app/resource/tomato.png"));
 			stage.setScene(scene);
 			stage.setResizable(false);

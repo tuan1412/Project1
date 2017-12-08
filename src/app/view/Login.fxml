@@ -3,13 +3,14 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="380.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.LoginController">
+<AnchorPane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="380.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.LoginController">
    <children>
       <AnchorPane layoutY="177.0" prefHeight="164.0" prefWidth="380.0">
          <children>
@@ -17,11 +18,17 @@
                <font>
                   <Font size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXTextField>
             <JFXPasswordField fx:id="passwordFeild" focusColor="#f44336" labelFloat="true" layoutX="50.0" layoutY="117.0" prefHeight="36.0" prefWidth="280.0" promptText="Password" unFocusColor="#4e606e">
                <font>
                   <Font size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXPasswordField>
          </children>
       </AnchorPane>
@@ -29,16 +36,25 @@
          <font>
             <Font size="14.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <JFXButton fx:id="signUp" layoutX="208.0" layoutY="363.0" prefHeight="43.0" prefWidth="126.0" style="-fx-background-color: #f44336;" text="Sign  Up" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <Label fx:id="demoLabel" contentDisplay="CENTER" layoutX="48.0" layoutY="433.0" prefHeight="17.0" prefWidth="286.0" text="Get demo timer!" textFill="#f44336" underline="true">
          <font>
             <Font size="14.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Label>
       <ImageView fitHeight="91.0" fitWidth="156.0" layoutX="145.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
