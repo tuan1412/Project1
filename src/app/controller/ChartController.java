@@ -47,7 +47,7 @@ public class ChartController implements Initializable {
 
 		XYChart.Series<String, Integer> series = new XYChart.Series<>();
 		for (int i = 0; i < listTimeWork.size(); i++) {
-			series.getData().add(new XYChart.Data<String, Integer>(listTimeWork.get(i).getDate().substring(8),
+			series.getData().add(new XYChart.Data<String, Integer>(listTimeWork.get(i).getDate().substring(5),
 					listTimeWork.get(i).getMinutesWork()));
 		}
 		lineChart.setLegendVisible(false);
@@ -99,14 +99,14 @@ public class ChartController implements Initializable {
 
 				
 
-					series.getData().add(new XYChart.Data<>(listTimeWork.get(index1).getDate().substring(8),
+					series.getData().add(new XYChart.Data<>(listTimeWork.get(index1).getDate().substring(5),
 
 							listTimeWork.get(index1).getMinutesWork()));
 					currentDate = DateIncrementer.addOneDay(currentDate);
 					index1 += 1;
 				} else {
 
-					series.getData().add(new XYChart.Data<>(currentDate.substring(8), 0));
+//					series.getData().add(new XYChart.Data<>(currentDate.substring(5), 0));
 
 					currentDate = DateIncrementer.addOneDay(currentDate);
 				}

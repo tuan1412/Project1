@@ -1,0 +1,7 @@
+.image-view:hover {
+	-fx-opacity: 0.8;
+}
+
+.image-view {
+	-fx-cursor: hand;
+}

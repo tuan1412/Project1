@@ -205,6 +205,7 @@ public class ClockTimer extends AnchorPane{
 	private void onClickDone() {
 		isStop.set(true);
 		timeDone = timeDone.plusSeconds(time.toSecondOfDay());
+		timeline.stop();
 		
 	}
 	

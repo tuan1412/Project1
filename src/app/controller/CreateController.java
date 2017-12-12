@@ -60,6 +60,7 @@ public class CreateController {
 
 	
     public void initialize() {
+    	startDatePicker.setValue(LocalDate.now());
 		backLabel.setOnMouseClicked(e->backMain());
 		confirmBtn.setOnAction(e->addJob());
 

@@ -5,13 +5,20 @@ import java.time.LocalTime;
 
 import javax.management.Notification;
 
+import org.controlsfx.control.Notifications;
+import org.controlsfx.tools.Platform;
+
 import app.model.Job;
 import app.services.JobService;
 import app.services.UpdateStatistic;
 import app.ui.ClockTimer;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 public class TimeController {
 	private final static String WORK_TITLE = "Time to work";
@@ -77,23 +84,29 @@ public class TimeController {
 			minsDone += clockTimer.getTimeDone();
 
 			setTextTaskLabel();
+			showWorkDoneNoti();
+
 			if (job.getTaskDone() == job.getTaskNumber()) {
+				
 				stateTime.setText(DONE_TITLE);
 				backLabel.visibleProperty().unbind();
 				backLabel.setVisible(true);
 				return;
 			}
 			if (++count == 4) {
+				
 				stateTime.setText(LONG_BREAK_TITLE);
 				clockTimer = new ClockTimer(LocalTime.of(0, job.getLongBreakTime(), 0));
 				makeTimer();
 			}else {
+				
 				stateTime.setText(SHORT_BREAK_TITLE);
 				clockTimer = new ClockTimer(LocalTime.of(0, job.getShortBreakTime(), 0));
 				makeTimer();
 			}
 			return;
 		}
+		showBreakTimeDoneNoti();
 		if (stateTime.getText().equals(LONG_BREAK_TITLE)) {
 			stateTime.setText(WORK_TITLE);
 			clockTimer = new ClockTimer(LocalTime.of(0, job.getWorkTime(), 0));
@@ -133,5 +146,36 @@ public class TimeController {
 	
 	private void setTextTaskLabel() {
 		taskLabel.setText("Task done: "+ job.getTaskDone() + "/" + job.getTaskNumber());
+	}
+	
+	private void showWorkDoneNoti() {
+		Notifications noti = Notifications.create()
+							.title("Job done!")
+							.text("Take a break time")
+							.graphic(new ImageView(new Image("app/resource/ok.png")))
+							.position(Pos.BOTTOM_RIGHT)
+							.hideAfter(Duration.seconds(2))
+							.darkStyle();
+		javafx.application.Platform.runLater(new Runnable() {
+			public void run() {
+				 noti.show();
+			}
+		});
+	   
+	}
+	
+	private void showBreakTimeDoneNoti() {
+		Notifications noti = Notifications.create()
+				.title("Break time done!")
+				.text("Time to work now")
+				.graphic(new ImageView(new Image("app/resource/ok.png")))
+				.position(Pos.BOTTOM_RIGHT)
+				.hideAfter(Duration.seconds(2))
+				.darkStyle();
+		javafx.application.Platform.runLater(new Runnable() {
+			public void run() {
+				 noti.show();
+			}
+		});
 	}
 }
