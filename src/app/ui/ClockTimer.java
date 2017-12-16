@@ -146,7 +146,6 @@ public class ClockTimer extends AnchorPane{
 			pauseBtn.getChildren().removeAll(pauseBtn.getChildren());
 			pauseBtn.getChildren().add(playImg);
 			timeline.pause();
-			System.out.println(time.toString());
 		}else {
 			isPlay.set(true);
 			pauseBtn.getChildren().removeAll(pauseBtn.getChildren());
@@ -205,12 +204,13 @@ public class ClockTimer extends AnchorPane{
 	private void onClickDone() {
 		isStop.set(true);
 		timeDone = timeDone.plusSeconds(time.toSecondOfDay());
+		timerLabel.setText("00:00");
 		timeline.stop();
 		
 	}
 	
 	public int getTimeDone() {
-		return timeDone.getMinute() + 1;
+		return timeDone.toSecondOfDay()/60;
 	}
 	
 }

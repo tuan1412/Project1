@@ -1,29 +1,24 @@
 package app.controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 
+import app.MainApp;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class ListJobController implements Initializable {
+public class ListJobController {
 	@FXML
 	private AnchorPane navPane;
 
@@ -31,16 +26,17 @@ public class ListJobController implements Initializable {
 	private JFXHamburger navMenu;
 
 	@FXML
-
 	private AnchorPane mainPane;
-
-	@FXML
-	private JFXDrawer drawer;
 
 	private ContextMenu contextMenu;
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	private LoginController loginController;
+
+	public void setLoginController(LoginController loginController) {
+		this.loginController = loginController;
+	}
+
+	public void initialize() {
 		setHome();
 		createMenu();
 		mainPane.getStylesheets().add("/app/resource/css/login.css");
@@ -49,7 +45,7 @@ public class ListJobController implements Initializable {
 
 	public void setCreate() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Create.fxml"));
+			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/Create.fxml"));
 			Parent root = loader.load();
 			CreateController createController = loader.getController();
 			createController.setListJobController(this);
@@ -65,7 +61,7 @@ public class ListJobController implements Initializable {
 
 	public void setPlay() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Time.fxml"));
+			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/Time.fxml"));
 			Parent root = loader.load();
 			TimeController timeController = loader.getController();
 			timeController.setListJobController(this);
@@ -81,7 +77,7 @@ public class ListJobController implements Initializable {
 
 	public void setHome() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Home.fxml"));
+			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/Home.fxml"));
 			Parent root = loader.load();
 			HomeController homeController = loader.getController();
 			homeController.setListJobController(this);
@@ -97,7 +93,7 @@ public class ListJobController implements Initializable {
 
 	public void setStatistic() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Chart.fxml"));
+			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/Chart.fxml"));
 			Parent root = loader.load();
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add((Node) root);
@@ -108,10 +104,10 @@ public class ListJobController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setViewGoal() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Goal.fxml"));
+			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/Goal.fxml"));
 			Parent root = loader.load();
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add((Node) root);
@@ -135,56 +131,47 @@ public class ListJobController implements Initializable {
 
 	private void createMenu() {
 		MenuItem mainItem = new MenuItem("Main", new ImageView(new Image("app/resource/main.png")));
-//		MenuItem mainItem = new MenuItem("Main");
-
 		mainItem.setOnAction(e -> setHome());
 
 		MenuItem createItem = new MenuItem("Create Job", new ImageView(new Image("app/resource/plus.png")));
-//		MenuItem createItem = new MenuItem("Create Job");
-
 		createItem.setOnAction(e -> setCreate());
-		
+
 		MenuItem goalItem = new MenuItem("View Goal", new ImageView(new Image("app/resource/goal.png")));
 		goalItem.setOnAction(e -> setViewGoal());
 
 		MenuItem statisticItem = new MenuItem("Statistic", new ImageView(new Image("app/resource/chart.png")));
-//		MenuItem statisticItem = new MenuItem("Statistic");
 
 		statisticItem.setOnAction(e -> setStatistic());
 
 		MenuItem logOutItem = new MenuItem("Log Out", new ImageView(new Image("app/resource/logout.png")));
-//		MenuItem logOutItem = new MenuItem("Log Out");
-
-		logOutItem.setOnAction(e -> switchScene("Login.fxml"));
+		logOutItem.setOnAction(e -> setLogin());
 
 		MenuItem exitItem = new MenuItem("Exit", new ImageView(new Image("app/resource/exit.png")));
-//		MenuItem exitItem = new MenuItem("Exit");
-
 		exitItem.setOnAction(e -> Platform.exit());
 
 		contextMenu = new ContextMenu();
 		contextMenu.getItems().addAll(mainItem, createItem, goalItem, statisticItem, logOutItem, exitItem);
 
-		navMenu.setOnMouseClicked(e -> contextMenu.show(navMenu, Side.RIGHT, 0, 0));
+		HamburgerBasicCloseTransition transition = new HamburgerBasicCloseTransition(navMenu);
+		transition.setRate(-1);
+
+		navMenu.setOnMouseClicked(e -> {
+			if (contextMenu.isShowing()) {
+				contextMenu.hide();
+			}else {
+				contextMenu.show(navMenu, Side.RIGHT, 0, 0);
+			}
+			
+		});
+		
+		contextMenu.showingProperty().addListener(e->{
+			transition.setRate(transition.getRate() * -1);
+			transition.play();
+		});
+
 	}
 
-	private void switchScene(String newScence) {
-		navMenu.getScene().getWindow().hide();
-		try {
-			Stage stage = new Stage();
-			String desScene = "../view/" + newScence;
-			Parent root = FXMLLoader.load(getClass().getResource(desScene));
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add("/app/resource/css/login.css");
-			stage.getIcons().add(new Image("/app/resource/tomato.png"));
-			stage.setScene(scene);
-			stage.setResizable(false);
-			stage.sizeToScene();
-
-			stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
+	private void setLogin() {
+		loginController.setLogin();
 	}
 }

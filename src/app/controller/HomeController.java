@@ -7,9 +7,6 @@ import java.util.List;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialog.DialogTransition;
-import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXListView;
 
 import app.model.Job;
@@ -18,8 +15,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -27,7 +22,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 
 public class HomeController {
 	private ListJobController listJobController;
@@ -125,7 +119,6 @@ public class HomeController {
 			}
 			if (newValue.equals("Overdate")) {
 				LocalDate date = workDatePicker.getValue();
-				System.out.println(date);
 				List<Job> jobs = jobService.queryJobOverdate(iduser, date);
 				items.setAll(jobs);
 				jobsList.setItems(items);
@@ -141,6 +134,17 @@ public class HomeController {
 	}
 
 	private void initListView() {
+		ContextMenu contextMenu = new ContextMenu();
+		MenuItem playItem = new MenuItem("Play");
+		playItem.setOnAction(e -> makePlay(jobsList.getSelectionModel().getSelectedItem()));
+		MenuItem doneItem = new MenuItem("Mark as done");
+		doneItem.setOnAction(e -> moveDone(jobsList.getSelectionModel().getSelectedIndex()));
+		MenuItem detailItem = new MenuItem("View detail");
+		detailItem.setOnAction(e -> viewDetail(jobsList.getSelectionModel().getSelectedItem()));
+		MenuItem removeItem = new MenuItem("Remove job");
+		removeItem.setOnAction(e-> removeItem(jobsList.getSelectionModel().getSelectedItem()));
+		contextMenu.getItems().addAll(playItem, doneItem, detailItem, removeItem);
+
 		jobsList.setPlaceholder(new Label("No Content In List"));
 		jobsList.setCellFactory(p -> {
 			ListCell<Job> cell = new ListCell<Job>() {
@@ -153,17 +157,7 @@ public class HomeController {
 					}
 				}
 			};
-			ContextMenu contextMenu = new ContextMenu();
-			MenuItem playItem = new MenuItem("Play");
-			playItem.setOnAction(e -> makePlay(jobsList.getSelectionModel().getSelectedItem()));
-			MenuItem doneItem = new MenuItem("Mark as done");
-			doneItem.setOnAction(e -> moveDone(jobsList.getSelectionModel().getSelectedIndex()));
-			MenuItem detailItem = new MenuItem("View detail");
-			detailItem.setOnAction(e -> viewDetail(jobsList.getSelectionModel().getSelectedItem()));
-			MenuItem removeItem = new MenuItem("Remove job");
-			removeItem.setOnAction(e-> removeItem(jobsList.getSelectionModel().getSelectedItem()));
-			contextMenu.getItems().addAll(playItem, doneItem, detailItem, removeItem);
-
+		
 			cell.emptyProperty().addListener((ov, wasEmpty, isNowEmpty) -> {
 				if (isNowEmpty) {
 					cell.setContextMenu(null);

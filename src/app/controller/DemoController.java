@@ -1,22 +1,21 @@
 package app.controller;
 
-import java.net.URL;
 import java.time.LocalTime;
-import java.util.ResourceBundle;
+
+import org.controlsfx.control.Notifications;
 
 import app.ui.ClockTimer;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import javafx.util.Duration;
 
-public class DemoController implements Initializable {
+public class DemoController  {
 	@FXML
 	private Label backLoginLabel;
 	@FXML
@@ -27,8 +26,12 @@ public class DemoController implements Initializable {
     @FXML
     private Label stateLabel;
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+    private LoginController loginController;
+    
+    public void setLoginController(LoginController loginController) {
+    	this.loginController = loginController;
+    }
+	public void initialize() {
 		backLoginLabel.setOnMouseClicked(e -> backLogin());
 		backLoginLabel.setOnMouseEntered(e -> backLoginLabel.setUnderline(true));
 		backLoginLabel.setOnMouseExited(e -> backLoginLabel.setUnderline(false));
@@ -43,25 +46,29 @@ public class DemoController implements Initializable {
 		
 		timer.isStopProperty().addListener((ov, oldValue, newValue)->{
 			stateLabel.setText("Job done. Sign in for more.");
+			showDoneDemo();
 		});
 
 	}
 
 	public void backLogin() {
-		backLoginLabel.getScene().getWindow().hide();
-		try {
-			Stage stage = new Stage();
-			Parent root = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add("/app/resource/css/login.css");
-			stage.getIcons().add(new Image("/app/resource/tomato.png"));
-			stage.setScene(scene);
-			stage.setResizable(false);
-			stage.sizeToScene();
-			stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		loginController.setLogin();
+	}
+	
+	// hiện thị thong báo, dùng thư viện controlsfx, cũng k có gì, cứ làm theo thôi
+	private void showDoneDemo() {
+		Notifications noti = Notifications.create()
+				.title("Demo done")
+				.text("Take a account to try more")
+				.graphic(new ImageView(new Image("app/resource/ok.png")))
+				.position(Pos.BOTTOM_RIGHT)
+				.hideAfter(Duration.seconds(2))
+				.darkStyle();
+		Platform.runLater(new Runnable() {
+			public void run() {
+				 noti.show();
+			}
+		});
 	}
 
 }

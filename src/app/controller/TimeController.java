@@ -3,15 +3,13 @@ package app.controller;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javax.management.Notification;
-
 import org.controlsfx.control.Notifications;
-import org.controlsfx.tools.Platform;
 
 import app.model.Job;
 import app.services.JobService;
 import app.services.UpdateStatistic;
 import app.ui.ClockTimer;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -62,7 +60,7 @@ public class TimeController {
 	public void initialize() {
 		try {
 			count = 0;
-			titleLabel.setText(job.getTitle());
+			titleLabel.setText("Job title: " +job.getTitle());
 			if (job.getPause() == null || job.getPause().equals("00:00:00")) {
 				clockTimer = new ClockTimer(LocalTime.of(0, job.getWorkTime(), 0));
 			} else {
@@ -138,6 +136,7 @@ public class TimeController {
 			upStatistic.updateStatistic(job.getIduser(), LocalDate.now().toString(), minsDone);
 			listJobController.setHome();
 		}else {
+			upStatistic.updateStatistic(job.getIduser(), LocalDate.now().toString(), minsDone);
 			job.setPause("00:00:00");
 			jobService.updateJob(job);
 			listJobController.setHome();
@@ -156,7 +155,7 @@ public class TimeController {
 							.position(Pos.BOTTOM_RIGHT)
 							.hideAfter(Duration.seconds(2))
 							.darkStyle();
-		javafx.application.Platform.runLater(new Runnable() {
+		Platform.runLater(new Runnable() {
 			public void run() {
 				 noti.show();
 			}
@@ -172,7 +171,7 @@ public class TimeController {
 				.position(Pos.BOTTOM_RIGHT)
 				.hideAfter(Duration.seconds(2))
 				.darkStyle();
-		javafx.application.Platform.runLater(new Runnable() {
+		Platform.runLater(new Runnable() {
 			public void run() {
 				 noti.show();
 			}
